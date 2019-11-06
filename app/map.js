@@ -312,7 +312,7 @@ class Map {
 
                 })
                 .on('click', function(d) {
-                    clicked(d, 35);
+                    clicked(d, 39);
                 });
 
             function clicked(d, k) {
