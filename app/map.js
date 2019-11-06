@@ -1,7 +1,7 @@
 import 'intersection-observer';
 import * as d3 from 'd3';
 import * as topojson from "topojson";
-import us from '../sources/mnpct-small.json';
+import us from '../sources/stpaul_pct.json';
 
 
 class Map {
@@ -15,11 +15,11 @@ class Map {
         this.zoomed = false;
         this.scaled = $(target).width() / 520;
         this.colorScale = d3.scaleOrdinal()
-            .domain(['d1', 'd2', 'd3', 'd4', 'd5', 'd6'])
-            .range(['#B6AED4', '#DEA381', '#8CBF82', '#7f98aa', '#4c4c39', '#f2614c']);
+            .domain(['d1', 'd2'])
+            .range(['#B6AED4', '#DEA381']);
         this.colorScale2 = d3.scaleOrdinal()
-            .domain(['d1', 'd2', 'd3', 'd4', 'd5', 'd6'])
-            .range(['#B6AED4', '#DEA381', '#8CBF82', '#7f98aa', '#4c4c39', '#f2614c']);
+            .domain(['d1', 'd2'])
+            .range(['#B6AED4', '#DEA381']);
     }
 
     /********** PRIVATE METHODS **********/
@@ -175,7 +175,7 @@ class Map {
                     var candidates = [];
                     var votes = 0;
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].match == (d.properties.COUNTYCODE + d.properties.CONGDIST + d.properties.MNLEGDIST + d.properties.PCTCODE)) {
+                        if (data[i].match == (d.properties.CountyID + d.properties.CongDist + d.properties.MNLegDist + d.properties.PCTCODE)) {
                             if (party == 'DFL') {
                                 candidates.push([data[i].d1_name, data[i].d1, self.colorScale('d1')]);
                                 candidates.push([data[i].d2_name, data[i].d2, self.colorScale('d2')]);
@@ -206,21 +206,21 @@ class Map {
                             for (var j=0; j < candidates.length; j++){
                                 tipString = tipString + "<div class='tipRow'><div class='canName'>" + candidates[j][0] + "</div><div class='legendary votepct' style='background-color:" + candidates[j][2] + "'>" + d3.format(".1f")(candidates[j][1]) + "%</div></div>";
                             }
-                            if (candidates[0][0] == 0) { return d.properties.PCTNAME + "<div>No results</div>"; } 
-                            else { return d.properties.PCTNAME + " " + tipString + "<div class='votes'>Votes: " + d3.format(",")(votes) + "</div>"; }
+                            if (candidates[0][0] == 0) { return d.properties.Precinct + "<div>No results</div>"; } 
+                            else { return d.properties.Precinct + " " + tipString + "<div class='votes'>Votes: " + d3.format(",")(votes) + "</div>"; }
                         }
                     }
-                    return d.properties.PCTNAME + "<div>No results</div>";
+                    return d.properties.Precinct + "<div>No results</div>";
                 }))
                 .transition()
                 .duration(600)
                 .attr('class', function(d){
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].match == (d.properties.COUNTYCODE + d.properties.CONGDIST + d.properties.MNLEGDIST + d.properties.PCTCODE)) {
-                            return 'precinct CD' + d.properties.CONGDIST;
+                        if (data[i].match == (d.properties.CountyID + d.properties.CongDist + d.properties.MNLegDist + d.properties.PCTCODE)) {
+                            return 'precinct CD' + d.properties.PrecinctID;
                         } 
                     }
-                    return 'precinct noclicky CD' + d.properties.CONGDIST;
+                    return 'precinct noclicky CD' + d.properties.PrecinctID;
                 })
                 .style('fill', function(d) {
                     var winner = '';
@@ -230,17 +230,12 @@ class Map {
                     var count = 0;
 
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].match == (d.properties.COUNTYCODE + d.properties.CONGDIST + d.properties.MNLEGDIST + d.properties.PCTCODE)) {
+                        if (data[i].match == (d.properties.CountyID + d.properties.CongDist + d.properties.MNLegDist + d.properties.PCTCODE)) {
                             if (party == 'DFL') {
                                 winner_sat = self.colorScale2(data[i].dWin);
                                 winner = self.colorScale(data[i].dWin);
                                 margin = data[i].dMargin;
                                 candidates = [data[i].d1,data[i].d2,data[i].d3,data[i].d4,data[i].d5,data[i].d6];
-                            } else if (party == 'GOP') {
-                                winner_sat = self.colorScale2(data[i].rWin);
-                                winner = self.colorScale(data[i].rWin);
-                                margin = data[i].rMargin;
-                                candidates = [data[i].r1,data[i].r2,data[i].r3,data[i].r4];
                             }
                             for (var k=0; k < candidates.length; k++) { if (candidates[k] == margin) { count++; } }
                             var colorIntensity = d3.scaleLinear().domain([1, 100]).range([winner, winner_sat]);
@@ -272,7 +267,7 @@ class Map {
 
             var path = d3.geoPath(projection);
 
-            var states = topojson.feature(us, us.objects.convert);
+            var states = topojson.feature(us, us.objects.stpaul_pct);
             var state = states.features.filter(function(d) {
                 return d.properties.CONGDIST == filtered;
             })[0];
@@ -294,7 +289,7 @@ class Map {
             self.g.append('g')
                 .attr('class', 'precincts') 
                 .selectAll('path')
-                .data((topojson.feature(us, us.objects.convert).features).filter(function(d) {
+                .data((topojson.feature(us, us.objects.stpaul_pct).features).filter(function(d) {
                     if (filtered != "all") {
                         return d.properties.CONGDIST == race;
                     } else {
@@ -304,7 +299,7 @@ class Map {
                 .enter().append('path')
                 .attr('d', path)
                 .attr('id', function(d) {
-                    return self.target + 'P' + d.properties.VTDID;
+                    return self.target + 'P' + d.properties.PrecinctID;
                 })
                 .style('stroke-width', '0.2px')
                 .style('fill', '#dddddd')
