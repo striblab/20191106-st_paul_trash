@@ -1,0 +1,84 @@
+
+
+
+<!-- Main content here -->
+<main id="main-content" class="content" role="main">
+  <div class="container-lg">
+    <div id="wrapper">
+
+        <div class="slide">
+
+          <div class="map" id="mapper1">
+              <svg width="520" height="400" viewBox="0 0 520 500" preserveAspectRatio="xMidYMid"></svg>
+          </div>
+    
+        <div class="contest-table">
+          <table>
+            <thead>
+              <tr><th></th>
+              <th class="cand">Choice</th>
+              <th class="votes">Votes</th>
+              <th class="pct">PCT</th>
+              <th class="bar"></th></tr></thead>
+    
+              <tbody>
+                  <tr class="party-dem1 winner" title="party">
+                      <td class="winner" title="">
+                          <span class="check">✓</span>
+                        </td>
+                      <td class="cand">
+                        <span class="first">Yes&nbsp;</span>
+                        <span class="party-label"></span>
+                      </td>
+                      <td class="votes"><span>34,174</span></td>
+                      <td class="pct"><span class="num">62.5%</span></td>
+                      <td class="bar" title="party">
+                        <span class="pctBar" style="width: 63.7%;"></span>
+                      </td>
+                  </tr>
+    
+                <tr class="party-dem2" title="party">
+                  <td title="party">
+                    <span class="candidate-color-label" title="party"></span>
+                  </td>
+                  <td class="cand">
+                    <span class="first">No&nbsp;</span>
+                    <span class="party-label"></span>
+                  </td>
+                  <td class="votes"><span>20,475</span></td>
+                  <td class="pct"><span class="num">37.5%</span></td>
+                  <td class="bar" title="party">
+                    <span class="pctBar" style="width: 37.5%;"></span>
+                  </td>
+              </tr>
+              </tbody>
+          </table>
+    </div>
+
+    <div class="byline">Data source: Minnesota Secretary of State | Graphic by <a href="http://www.startribune.com/jeff-hargarten/274254381/" target="new_">Jeff Hargarten, Star Tribune</a></div>
+
+      </div>
+
+
+  </div>
+  </div>
+</main>
+
+
+<script>
+  export default {
+    oncreate() {
+      // For content that lives in the CMS directly, we hack
+      // around the share bits by removing it before we load
+      // the component, then re-attach here.
+      //
+      // This looks like
+      // <div class="share-placeholder">
+      //   <!-- share -->
+      // </div>
+      if (this.get().attachShare) {
+        this.get().attachShare();
+      }
+    }
+  };
+</script>

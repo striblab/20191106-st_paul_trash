@@ -1,0 +1,83 @@
+/**
+ * Main style file for project.
+ * Uses SASS, specifically the SCSS syntax
+ * http://sass-lang.com/
+ */
+
+
+// Include strib-icons
+$strib-fonts-location: '//static.startribune.com/assets/libs/strib-icons/0.0.10/';
+@import '@striblab/strib-icons/build/strib-icons.scss';
+
+
+// Environment noting
+@import "shared/_environment";
+
+// Strib styles
+// https://github.com/striblab/strib-styles/blob/master/source/styles/_variables.scss
+
+@import '@striblab/strib-styles/source/styles/default.scss';
+
+// Split your styles into multiple files so its easier to understand and change
+@import 'shared/_project';
+
+
+.tooltip {
+    background-color: white;
+    font-family: "Benton Sans", Helvetica, Arial, sans-serif !important;
+    height: auto;
+    width: auto;
+    padding: 10px;
+    border-radius: 0;
+    border: 1px solid black;
+    text-align:center;
+    font-size: 13px;
+  }
+  
+  
+  .legendary {
+    padding:4px;
+    color: #000000;
+    font-weight:bold;
+    border-radius: 5px;
+    padding: 0 7px;
+    margin-bottom: 3px;
+  }
+  
+  .key_legend {
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom:2px;
+  }
+  
+  #tip {
+    min-height:200px;
+    display:none;
+  }
+  
+  .votes {
+    clear:both !important;
+  }
+  
+  .tipTitle {
+    text-align:center;
+  }
+  
+  .tipRow {
+    clear:both;
+  }
+  
+  .canName {
+    float:left;
+    margin-right:5px;
+  }
+  
+  .votepct {
+    float:right;
+  }
+  
+  .percent {
+    text-align:right;
+  }

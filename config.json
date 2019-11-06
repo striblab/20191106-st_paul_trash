@@ -1,0 +1,42 @@
+{
+  "about this file": "This document defines configuration for this project that is not content or copy.",
+  "projectIdentifier": "20191106-st-paul-trash",
+
+
+  "social": {
+    "image": "assets/images/strib/strib-logo-name-social-card.png"
+  },
+
+  "styles": {
+    "globals": [
+    ]
+  },
+  "js": {
+    "globals": [
+      "https://cdn.polyfill.io/v2/polyfill.min.js",
+      "https://static.startribune.com/assets/libs/pym.js/1.3.2/pym.v1.min.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    ]
+  },
+  "publishToken": "9a74cd86f471f3bdca9310ee7103ff4d",
+  "publish": {
+    "default": {
+      "bucket": "static.startribune.com",
+      "path": "news/projects-staging/all/20191106-st-paul-trash",
+      "url": "http://static.startribune.com/news/projects-staging/all/20191106-st-paul-trash/",
+      "cacheSeconds": 30
+    },
+    "testing": {
+      "bucket": "stribtest-bucket",
+      "path": "news/projects/20191106-st-paul-trash",
+      "url": "https://s3.amazonaws.com/stribtest-bucket/news/projects/20191106-st-paul-trash/",
+      "cacheSeconds": 30
+    },
+    "production": {
+      "bucket": "static.startribune.com",
+      "path": "news/projects/all/20191106-st-paul-trash",
+      "url": "http://static.startribune.com/news/projects/all/20191106-st-paul-trash/",
+      "cacheSeconds": 600
+    }
+  }
+}
